@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-5" style="background-color: #f2f2f2; padding: 40px; border-radius: 15px;">
+    <!-- Assignment Details Card -->
+    <div class="card shadow-lg border-0 mb-5" style="background-color: #ffffff; border-radius: 15px;">
+        <div class="card-body text-center p-5">
+            <h3 class="text-center mb-4" style="font-weight: 600; color: #333;"> {{  new_assignment.subject }}</h3>
+            <p class="text-muted" style="font-size: 1.2em;"><strong>Assignment title:</strong> {{new_assignment.title  }}</p>
+            <p class="text-muted" style="font-size: 1em;"><strong>Due Date:</strong> {{ new_assignment.due_date|date:"F j, Y" }}</p>
+            <a href="{{ new_assignment.content.url }}" class="btn btn-dark btn-lg mt-3 px-5" download>Download Assignment</a>
+        </div>
+    </div>
+
+    <!-- Assignment Submission Card -->
+    <div class="card shadow-lg border-0 mb-5" style="background-color: #ffffff; border-radius: 15px;">
+        <div class="card-body p-5">
+            <h3 class="text-center mb-4" style="font-weight: 600; color: #333;">Submit Your Assignment</h3>
+            <form method="POST" enctype="multipart/form-data" class="px-3">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label for="content" class="form-label" style="font-weight: 500;">Upload Your Assignment</label>
+                    <input class="form-control" type="file" id="content" name="content" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-dark btn-lg" style="padding: 10px 40px;">Submit Assignment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Previous Submissions Card -->
+    {% if submit %}
+    <div class="card shadow-lg border-0" style="background-color: #ffffff; border-radius: 15px;">
+        <div class="card-body p-5">
+            <h4 class="text-center mb-4" style="font-weight: 600; color: #333;">Previous Submissions</h4>
+            <div class="list-group">
+                {% for submission in submit %}
+                    <div class="list-group-item py-4 px-3 mb-3" style="border-radius: 10px; background-color: #f8f9fa;">
+                        <p><strong>Submitted on:</strong> {{ submission.submission_date|date:"F j, Y" }}</p>
+                        <p><strong>Marks:</strong> {{ submission.marks }}</p>
+                        <p><strong>Feedback:</strong> {{ submission.feedback }}</p>
+                    </div>
+                    <div class="text-center">
+                        <a href="{% url 'student_dashboard' %}" class="btn btn-dark btn-lg w-25">See More</a>
+                    </div>
+
+                {% empty %}
+                    <p class="text-center text-muted">No previous submissions found.</p>
+                {% endfor %}
+            </div>
+            
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

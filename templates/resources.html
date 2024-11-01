@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container my-5" style="background-color: #f2f2f2; padding: 40px; border-radius: 15px;">
+    <h2 class="text-center mb-5" style="font-size: 2.5rem; font-weight: 600; color: #495057;">
+        <span style="border-bottom: 4px solid #007bff; padding-bottom: 0.3rem;">Classroom Resources</span>
+    </h2>
+    
+    <div class="row justify-content-center">
+        {% if resources %}
+            {% for resource in resources %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-lg border-0 h-100" style="background-color: #ffffff; border-radius: 15px;">
+                        <div class="card-body text-center p-5">
+                            <h5 class="card-title text-primary">{{ resource.classroom }}</h5>
+                            <p class="text-muted"><strong>Additional Notes:</strong> {{ resource.extra_notes|default:"No additional notes provided." }}</p>
+                            
+                            {% if resource.content %}
+                                <a href="{{ resource.content.url }}" class="btn btn-outline-dark btn-lg mt-3 px-5" target="_blank">
+                                    Open Resource
+                                </a>
+                            {% else %}
+                                <p class="text-center text-muted mt-3">No resource file available for download.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="text-center mt-5">
+                <p class="text-muted">No resources available.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

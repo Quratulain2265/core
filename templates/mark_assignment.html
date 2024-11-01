@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+
+
+
+<div class="container mt-5">
+
+<h4 class="mt-5">Mark Other Submissions</h4>
+<form method="GET" action="{% url 'mark_assignment' submission.id %}">
+    <label for="other_submissions" class="form-label">Select an assignment to mark:</label>
+    <select class="form-select" id="other_submissions" name="submission_id" onchange="this.form.submit()">
+        <option value="">-- Select an assignment --</option>
+        {% for assignment in all_assignments %}
+            <option value="{{ assignment.id }}">
+                {{ assignment.title }} - {{ assignment.classroom }}  
+            </option>
+        {% endfor %}
+    </select>
+</form>
+
+    <h2 class="text-center mb-5">Mark Assignment</h2>
+
+    <h4>Assignment: {{ submission.assignment.title }}</h4>
+    <p>Submitted by: {{ submission.student.username }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="marks" class="form-label">Marks:</label>
+            <input type="number" class="form-control" id="marks" name="marks" value="{{ submission.marks }}" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="feedback" class="form-label">Feedback:</label>
+            <textarea class="form-control" id="feedback" name="feedback">{{ submission.feedback }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-dark">Submit Marks</button>
+    </form>
+
+    <hr>
+
+</div>
+{% endblock %}

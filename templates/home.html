@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+
+<div class="w-100" style="position: relative;  height: 100vh; overflow: hidden;">
+    <div style="background-image: url(../static/images/university.jpg); background-size: cover; background-position: center; background-attachment: fixed; width: 100%; height: 100%; position: absolute; ">
+    </div>
+    <div style="background-color: rgba(0, 0, 0, 0.5); position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 2;">
+    </div>
+    <div class="container h-100 d-flex flex-column justify-content-center align-items-center text-center text-white" style="position: relative; z-index: 3;">
+        <h1 class="display-4">Welcome to Our Class Management System</h1>
+        <p class="lead">Streamlining the learning experience for higher education institutions.</p>
+    </div>
+</div>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5 fw-bold">Our Key Features</h2>
+        <div class="row text-center">
+            <div class="col-lg-4 mb-4 ">
+                <div class="feature-box p-4 bg-white rounded shadow-sm ">
+                    <i class="fas fa-book-open fa-3x mb-3 text-primary"></i><br>
+                    <a href="{% url 'resources' %}" class="fw-bold fs-4 text-decoration-none text-dark">Manage Courses</a>
+                    <p>View and manage your enrolled courses and access course materials easily.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="feature-box p-4 bg-white rounded shadow-sm">
+                    <i class="fas fa-file-alt fa-3x mb-3 text-primary"></i><br>
+                    <a href="{% url 'assigned_assignments' %}" class="fw-bold fs-4 text-decoration-none text-dark">Submit Assignments</a>
+                     <p>Upload and track your assignments with ease. Never miss a deadline.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="feature-box p-4 bg-white rounded shadow-sm">
+                    <i class="fas fa-users fa-3x mb-3 text-primary"></i><br>
+                    {% if submissions %}
+                        <a href="{% url 'mark_assignment' submissions.0.id %}" class="fw-bold fs-4 text-decoration-none text-dark">
+                            Instructor Access
+                        </a>
+                    {% else %}
+                        <span class="fw-bold fs-4 text-muted">No submissions available</span>
+                    {% endif %}
+                    <p>Instructors can manage students, upload resources, and grade assignments.</p>
+                </div>
+                
+                {% for submission in submissions %}
+                    <!-- Display submission details or any other information here -->
+                {% endfor %}
+                
+
+            
+            
+    </div>
+</section>
+
+
+{% endblock content %}
