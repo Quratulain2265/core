@@ -1,11 +1,11 @@
-from django.shortcuts import redirect, render, HttpResponse
+from django.shortcuts import render
 from auths.models import Resources
 
 def resource(request):
-    # Assuming joined_class is the current class joined by the user
-    joined_class = request.user.classroom  # Modify this based on your current class retrieval method
+    # Get the current user's joined class
+    joined_class = request.user.classroom  # Modify this if you retrieve the current class differently
 
-    # Filter resources based on the current class
+    # Filter resources to only include those associated with the user's joined class
     resources = Resources.objects.filter(classroom=joined_class)
     
     context = {
