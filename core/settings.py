@@ -151,3 +151,8 @@ JAZZMIN_SETTINGS = {
      "site_logo": "",
 }
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://*.trycloudflare.com"
+]
+
+
