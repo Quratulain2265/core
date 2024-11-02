@@ -25,7 +25,11 @@ SECRET_KEY = 'django-insecure-u%y)j_lk@jr)s=!6)m55m+j51p!dt8o6dgsc7sr7$4ykqs*d*n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'avoid-mountain-emails-cached.trycloudflare.com',
+]
 
 
 # Application definition
@@ -151,3 +155,6 @@ JAZZMIN_SETTINGS = {
      "site_logo": "",
 }
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://avoid-mountain-emails-cached.trycloudflare.com',  # Add this line
+]
