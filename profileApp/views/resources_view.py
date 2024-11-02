@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from auths.models import Resources
 
 def resource(request):
-    # Get the current user's joined class
-    joined_class = request.user.classroom  # Modify this if you retrieve the current class differently
-
-    # Filter resources to only include those associated with the user's joined class
+    if not request.user.is_authenticated:
+        messages.info(request, "Please log in to access courses.")
+        return redirect('home') 
+    joined_class = request.user.classroom  
     resources = Resources.objects.filter(classroom=joined_class)
     
     context = {

@@ -10,7 +10,7 @@ def student_login(request):
         password = request.POST.get('password')
         user = User.objects.filter(email=email).first()
         
-        if user and not user.is_staff:  # Ensure only students log in here
+        if user and not user.is_staff:
             student_user = authenticate(username=user.username, password=password)
             if student_user:
                 login(request, student_user)
@@ -28,13 +28,12 @@ def admin_login(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
         user = User.objects.filter(email=email, is_staff=True).first()
-        
-        if user:  # Only allow admins to log in here
+        if user: 
             admin_user = authenticate(username=user.username, password=password)
             if admin_user:
                 login(request, admin_user)
                 messages.success(request, "Admin logged in successfully")
-                return redirect('/admin/dashboard')  # Redirect to admin dashboard
+                return redirect('/admin/dashboard') 
             else:
                 messages.error(request, "Invalid admin password")
         else:
