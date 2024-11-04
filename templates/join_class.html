@@ -36,6 +36,26 @@
             </table>
         </div>
 
+
+
+        <!-- Display Assignments -->
+<div class="mt-4">
+    <h4 class="text-secondary">Assignments:</h4>
+    <ul class="list-group">
+        {% for assignment in assignments %}
+            <li class="list-group-item">
+                <h6 class="text-dark">Title: {{ assignment.title }}</h6>
+            </li>
+        {% empty %}
+            <li class="list-group-item">No assignments available.</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url  'assigned_assignments' %}" class="btn btn-primary btn-sm mt-2">
+        View Details
+    </a>
+</div>
+
+
         <!-- Display Resources -->
         <div class="mt-4">
             <h4 class="text-secondary">Resources:</h4>

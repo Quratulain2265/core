@@ -13,6 +13,8 @@ def join_class(request):
 
     students_in_class = User.objects.filter(classroom=joined_class) if joined_class else None
     resources = Resources.objects.filter(classroom=joined_class) if joined_class else None
+    assignments = Assignment.objects.filter(classroom=joined_class) if joined_class else None
+
 
     if request.method == 'POST' and not joined_class:
         class_id = request.POST.get('class_id')
@@ -26,5 +28,6 @@ def join_class(request):
         'joined_class': joined_class,
         'students_in_class': students_in_class,
         'resources': resources,
+         'assignments': assignments,
     }
     return render(request, 'join_class.html', context)
